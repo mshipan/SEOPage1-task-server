@@ -26,6 +26,18 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+    // collection start
+    const taskCollection = client.db("seopage1-task").collection("tasks");
+    // collection end
+
+    // APIs Start
+    app.get("/tasks", async (req, res) => {
+      const result = await taskCollection.find().toArray();
+      res.send(result);
+    });
+    // APIs End
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
